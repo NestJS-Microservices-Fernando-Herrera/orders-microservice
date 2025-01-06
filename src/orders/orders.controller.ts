@@ -1,8 +1,7 @@
-import { Controller, NotImplementedException } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Controller()
 export class OrdersController {
@@ -24,10 +23,7 @@ export class OrdersController {
   }
 
   @MessagePattern('changeOrderStatus')
-  changeOrderStatus(@Payload() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.changeOrderStatus(
-      updateOrderDto.id,
-      updateOrderDto,
-    );
+  changeOrderStatus(@Payload() object: any) {
+    return this.ordersService.changeOrderStatus(object.id, object);
   }
 }
